@@ -39,78 +39,79 @@ function cambiarLimiteDeExtraccion() {
 }
 
 function extraerDinero() {
+    var saldoAnterior = saldoCuenta;
     var extraerDinero = prompt("¿Cuánto dinero deseas extraer? Tu saldo actual es de " + saldoCuenta + " pesos");
     if (extraerDinero > saldoCuenta) {
-        alert("No tenes suficiente dinero en cuenta, por favor ingresa otro valor");
+      alert("No tenes suficiente dinero en cuenta, por favor ingresa otro valor");
     } else {
-        if (extraerDinero > limiteExtraccion) {
-            alert("El dinero que queres extraer es mayor a tu límite de extracción, \npor favor ingresa otro valor");
+      if (extraerDinero > limiteExtraccion) {
+        alert("El dinero que queres extraer es mayor a tu límite de extracción, \npor favor ingresa otro valor");
         } else {
-            if (extraerDinero % 100) {
-                alert("Esta terminal solo entrega billetes de 100, por favor ingresa otro valor")
-            } else {
-                restarDinero(extraerDinero);
-                var nuevoSaldo = (saldoCuenta + extraerDinero);
-                // no se me actualiza el valor quedaMAS MAS
-                alert("Tu saldo anterior era de " + saldoCuenta + " pesos" + "\nExtrajiste " + extraerDinero + " pesos" + "\nTu nuevo saldo es de " + nuevoSaldo + " pesos");
+          if ((extraerDinero % 100) !== 0 || isNaN(extraerDinero)) {
+            alert("El valor que ingresaste es invalido. Recuerda que esta terminal solo entrega billetes de 100")
+            }else{
+              restarDinero(extraerDinero);
+              alert("Tu saldo anterior era de " + saldoAnterior + " pesos" + "\nExtrajiste " + extraerDinero + " pesos" + "\nTu nuevo saldo es de " + saldoCuenta + " pesos");
             }
         }
     }
 }
 
 function depositarDinero() {
-    var depositarDinero = parseInt(prompt("¿Cuánto dinero deseas depositar? Tu saldo actual es de " + saldoCuenta + " pesos"));
-    sumarDinero(depositarDinero);
+  var saldoAnterior = saldoCuenta;
+  var depositarDinero = parseInt(prompt("¿Cuánto dinero deseas depositar? Tu saldo actual es de " + saldoCuenta + " pesos"));
+  sumarDinero(depositarDinero);
     var nuevoSaldo = (saldoCuenta + depositarDinero);
-    alert("Tu saldo anterior era de " + saldoCuenta + " pesos" + "\nDepositaste " + depositarDinero + " pesos" + "\nTu nuevo saldo es de " + nuevoSaldo + " pesos");
+    alert("Tu saldo anterior era de " + saldoAnterior + " pesos" + "\nDepositaste " + depositarDinero + " pesos" + "\nTu nuevo saldo es de " + saldoCuenta + " pesos");
 }
 
 function pagarServicio() {
-    var agua = 350,
-        luz = 210,
-        internet = 570,
-        telefono = 425;
-    var servicioIngresado = prompt("Ingresa el número que corresponda con el servicio que queres pagar \n1 Agua \n2 Luz \n3 Internet \n4 Teléfono");
-    switch (servicioIngresado) {
-        case "1":
-            if (saldoCuenta < 350) {
-                alert("No tenes dinero suficiente para dicha acción");
-            }
-            break;
-            restarDinero(agua);
-            var nuevoSaldo = (saldoCuenta - agua);
-            alert("Has pagado el servicio de agua" + "\nTu saldo anterior: $" + saldoCuenta + "\nServicio pagado: $350" + "\nTu saldo actual: $" + nuevoSaldo);
-            break;
-        case "2":
-            if (saldoCuenta < 210) {
-                alert("No tenes dinero suficiente para dicha acción");
-            }
-            break;
-            restarDinero(luz);
-            var nuevoSaldo = (saldoCuenta - luz);
-            alert("Has pagado el servicio de luz" + "\nTu saldo anterior: $" + saldoCuenta + "\nServicio pagado: $210" + "\nTu saldo actual: $" + nuevoSaldo)
-            break;
+  var servicioIngresado = prompt("Ingresa el número que corresponda con el servicio que queres pagar \n1 Agua $350 \n2 Luz $210 \n3 Internet $570\n4 Teléfono $425");
+
+  switch (servicioIngresado) {
+    case "1":
+      if (350 > saldoCuenta){
+       alert("No tenes dinero suficiente para dicha acción");
+       actualizarSaldoEnPantalla();
+     }else {
+       alert("Has pagado el servicio de agua" + "\nTu saldo anterior: $" + saldoCuenta + "\nServicio pagado: $350" + "\nTu saldo actual: $" + (saldoCuenta - 350));
+       restarDinero(350)
+     }
+      break;
+
+      case "2":
+        if (210 > saldoCuenta){
+         alert("No tenes dinero suficiente para dicha acción");
+         actualizarSaldoEnPantalla();
+       }else {
+         alert("Has pagado el servicio de luz" + "\nTu saldo anterior: $" + saldoCuenta + "\nServicio pagado: $210" + "\nTu saldo actual: $" + (saldoCuenta - 210));
+         restarDinero(210)
+       }
+        break;
+
         case "3":
-            if (saldoCuenta < 425) {
-                alert("No tenes dinero suficiente para dicha acción");
-            }
+          if (570 > saldoCuenta){
+           alert("No tenes dinero suficiente para dicha acción");
+           actualizarSaldoEnPantalla();
+         }else {
+           alert("Has pagado el servicio de internet" + "\nTu saldo anterior: $" + saldoCuenta + "\nServicio pagado: 570" + "\nTu saldo actual: $" + (saldoCuenta - 570));
+           restarDinero(570)
+         }
+          break;
+
+          case "4":
+            if (425 > saldoCuenta){
+             alert("No tenes dinero suficiente para dicha acción");
+             actualizarSaldoEnPantalla();
+           }else {
+             alert("Has pagado el servicio de teléfono" + "\nTu saldo anterior: $" + saldoCuenta + "\nServicio pagado: $425" + "\nTu saldo actual: $" + (saldoCuenta - 425));
+             restarDinero(425)
+           }
             break;
-            restarDinero(internet);
-            var nuevoSaldo = (saldoCuenta - internet);
-            alert("Has pagado el servicio de internet" + "\nTu saldo anterior: $" + saldoCuenta + "\nServicio pagado: $570" + "\nTu saldo actual: $" + nuevoSaldo)
-            break;
-        case "4":
-            if (saldoCuenta < 350) {
-                alert("No tenes dinero suficiente para dicha acción");
-            }
-            break;
-            restarDinero(telefono);
-            var nuevoSaldo = (saldoCuenta - telefono);
-            alert("Has pagado el servicio de teléfono" + "\nTu saldo anterior: $" + saldoCuenta + "\nServicio pagado: $425" + "\nTu saldo actual: $" + nuevoSaldo)
-            break;
+
         default:
-            alert("Por favor ingrese un numero válido");
-    }
+        alert("Ingrese un numero valido")
+  }
 }
 
 function transferirDinero() {
@@ -141,11 +142,9 @@ function transferirDinero() {
 function cargarNombreEnPantalla() {
     document.getElementById("nombre").innerHTML = "Bienvenido/a " + nombreUsuario;
 }
-
-function actualizarSaldoEnPantalla() {
-    document.getElementById("saldo-cuenta").innerHTML = "$" + saldoCuenta;
-}
-
 function actualizarLimiteEnPantalla() {
     document.getElementById("limite-extraccion").innerHTML = "Tu límite de extracción es: $" + limiteExtraccion;
+}
+function actualizarSaldoEnPantalla() {
+    document.getElementById("saldo-cuenta").innerHTML = "$" + saldoCuenta;
 }
