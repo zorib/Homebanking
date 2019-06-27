@@ -1,6 +1,6 @@
 
 var nombreUsuario = "Zori Clark"
-var saldoCuenta = 14570
+var saldoCuenta = 14470
 var limiteExtraccion = 2000
 
 window.onload = function() {
